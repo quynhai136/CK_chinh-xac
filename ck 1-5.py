@@ -313,14 +313,17 @@ print(question_30("hello world hello"))
 print(question_30( "apple orange apple banana orange"))
 
 #bài 31
+from typing import List
 import collections
-def question_31(paragraph: str, n: int) -> list[str]:
-    cac_tu = paragraph.split()
-    dic_tu = dict(collections.Counter(cac_tu))
-    so_tu = len(cac_tu)
-    tu_nhieu = [tu for tu, so in dic_tu.items() if so / so_tu > 0.2 ]
-    sap_xep_tu = sorted(tu_nhieu, key=lambda tu: dic_tu[tu], reverse= True)
-    return sap_xep_tu[:n]
+def question_31(paragraph: str, n: int) -> List[str]:
+    w_tach = paragraph.split()
+    w_dem_xh = collections.Counter(w_tach)
+    w_tong = len(w_tach)
+    ds = []
+    for word, count in w_dem_xh.items():
+        if count / w_tong > 0.2:
+            ds.append(word)
+    return ds
 print(question_31("apple apple banana orange orange apple", 2))
 
 #bài 32
@@ -388,6 +391,26 @@ def question_37(s: str) -> bool:
 print(question_37("()"))
 
 #bài 38
+def question_38(n: int) -> int:
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    dp[2] = 2
+    for i in range(3, n + 1):
+        dp[i] = dp[i - 1] + dp[i - 2]
+    return dp[n]
+print(question_38(2))
+
+#bài 39
+def question_39(prices: list[int]) -> int:
+    if len(prices) < 2:
+        return 0
+    gia_max = 0
+    mua_min = prices[0]
+    for i in prices[1:]:
+        gia_max = max(gia_max, i - mua_min)
+        mua_min = min(mua_min, i)
+    return gia_max
+print(question_39([6, 7, 8, 9, 20, 5]))
 
 
 
